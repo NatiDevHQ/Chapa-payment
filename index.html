@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Payment | Premium Service</title>
+    <script src="https://js.chapa.co/v1/inline.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="payment-card animate__animated animate__fadeInUp">
+      <div class="payment-header">
+        <h1 class="payment-title">Complete Payment</h1>
+        <p class="payment-subtitle">Secure checkout powered by Chapa</p>
+      </div>
+
+      <div class="payment-body">
+        <div class="order-summary">
+          <div class="summary-item">
+            <span class="summary-label">Product:</span>
+            <span class="summary-value" id="product-name"
+              >Premium Subscription</span
+            >
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Quantity:</span>
+            <div class="quantity-selector">
+              <button class="quantity-btn" id="decrement-qty">-</button>
+              <span class="quantity-value" id="quantity-value">1</span>
+              <button class="quantity-btn" id="increment-qty">+</button>
+            </div>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Unit Price:</span>
+            <span class="summary-value" id="unit-price">100 ETB</span>
+          </div>
+          <div class="summary-item summary-total">
+            <span class="summary-label">Total Amount:</span>
+            <span class="summary-value" id="total-amount">100 ETB</span>
+          </div>
+        </div>
+
+        <div class="messages">
+          <div id="success-message" class="message message-success"></div>
+          <div id="error-message" class="message message-error"></div>
+        </div>
+
+        <div class="payment-form-container">
+          <div id="chapa-inline-form"></div>
+        </div>
+
+        <div class="security-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24">
+            <path
+              d="M12,1L3,5v6c0,5.55 3.84,10.74 9,12c5.16-1.26 9-6.45 9-12V5L12,1z M12,11.99h7c-0.53,4.12-3.28,7.79-7,8.94V12H5V6.3l7-3.11V11.99z"
+            />
+          </svg>
+          <span>Secure 256-bit SSL encrypted payment</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="js/payment.js"></script>
+  </body>
+</html>
