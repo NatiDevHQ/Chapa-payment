@@ -2,44 +2,334 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Select Payment Method</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Method</title>
     <style>
-      body {
-        font-family: Arial;
-        background: #f2f2f2;
-        padding: 20px;
+      :root {
+        --primary: #4361ee;
+        --secondary: #7209b7;
+        --success: #4cc9f0;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --border-radius: 16px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
       }
-      .method {
-        border: 1px solid #ccc;
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .payment-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+
+      .order-summary {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .payment-methods {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--dark);
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--light);
+      }
+
+      .plan-details {
+        background: var(--light);
         padding: 20px;
-        border-radius: 10px;
-        margin: 10px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .plan-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .plan-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+      .features-list {
+        list-style: none;
+        margin: 20px 0;
+      }
+
+      .features-list li {
+        padding: 8px 0;
+        color: #6c757d;
+        border-bottom: 1px solid #f1f3f4;
+      }
+
+      .features-list li:before {
+        content: "✓";
+        color: var(--success);
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .payment-option {
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
         cursor: pointer;
-        display: inline-block;
+        transition: var(--transition);
+      }
+
+      .payment-option:hover {
+        border-color: var(--primary);
+        background: #f8f9ff;
+      }
+
+      .payment-option.selected {
+        border-color: var(--primary);
+        background: #f8f9ff;
+      }
+
+      .payment-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .payment-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--dark);
+      }
+
+      .payment-description {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      .btn-pay {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border: none;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .btn-pay:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+      }
+
+      .btn-pay:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+
+      .btn-back {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .btn-back:hover {
+        background: white;
+        color: var(--primary);
+      }
+
+      .security-notice {
+        background: #e7f3ff;
+        border: 1px solid #b3d9ff;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 20px;
+        text-align: center;
+        color: #0066cc;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .payment-container {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          max-width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-    <h2>Choose Payment Method</h2>
-    <div class="method" onclick="pay('chapa')">Chapa Pay</div>
-    <div class="method" onclick="pay('demo')">Demo Payment</div>
+    <div class="container">
+      <div class="header">
+        <h1>Payment Method</h1>
+        <p>Choose how you'd like to pay</p>
+      </div>
+
+      <div class="payment-container">
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h2 class="section-title">Order Summary</h2>
+
+          <div class="plan-details">
+            <div class="plan-name"><%= plan %> Plan</div>
+            <div class="plan-price"><%= amount %> ETB</div>
+          </div>
+
+          <div class="billing-info">
+            <h3 style="margin-bottom: 15px; color: var(--dark)">
+              What's included:
+            </h3>
+            <ul class="features-list">
+              <li>Full access to selected features</li>
+              <li>24/7 customer support</li>
+              <li>Regular updates and maintenance</li>
+              <li>Secure payment processing</li>
+              <li>30-day money back guarantee</li>
+            </ul>
+          </div>
+
+          <div class="security-notice">
+            🔒 Your payment is secure and encrypted
+          </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+          <h2 class="section-title">Choose Payment Method</h2>
+
+          <div class="payment-option selected" onclick="selectPayment('chapa')">
+            <div class="payment-icon">🌐</div>
+            <div class="payment-name">Chapa Pay</div>
+            <div class="payment-description">Secure payment via Chapa</div>
+          </div>
+
+          <!-- Additional payment methods can be added here -->
+          <div class="payment-option" onclick="selectPayment('bank')">
+            <div class="payment-icon">🏦</div>
+            <div class="payment-name">Bank Transfer</div>
+            <div class="payment-description">
+              Direct bank transfer (Coming soon)
+            </div>
+          </div>
+
+          <div class="payment-option" onclick="selectPayment('mobile')">
+            <div class="payment-icon">📱</div>
+            <div class="payment-name">Mobile Money</div>
+            <div class="payment-description">
+              Telebirr & other mobile wallets (Coming soon)
+            </div>
+          </div>
+
+          <!-- Chapa Payment Form -->
+          <form id="chapaForm" action="/api/pay" method="POST">
+            <input type="hidden" name="amount" value="<%= amount %>" />
+            <input type="hidden" name="plan" value="<%= plan %>" />
+            <input type="hidden" name="sessionId" value="<%= sessionId %>" />
+            <button type="submit" class="btn-pay" id="payButton">
+              Pay <%= amount %> ETB with Chapa
+            </button>
+          </form>
+
+          <div class="navigation">
+            <a href="/plans" class="btn-back">← Back to Plans</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
-      function pay(method) {
-        const plan = localStorage.getItem("selectedPlan");
-        const price = localStorage.getItem("selectedPrice");
+      function selectPayment(method) {
+        // Remove selected class from all options
+        document.querySelectorAll(".payment-option").forEach((option) => {
+          option.classList.remove("selected");
+        });
 
+        // Add selected class to clicked option
+        event.currentTarget.classList.add("selected");
+
+        // Enable/disable payment button based on availability
+        const payButton = document.getElementById("payButton");
         if (method === "chapa") {
-          document.getElementById("chapaForm").submit();
+          payButton.disabled = false;
+          payButton.textContent = `Pay <%= amount %> ETB with Chapa`;
+          document.getElementById("chapaForm").style.display = "block";
         } else {
-          const demoUrl = `/success-demo?plan=${plan}&amount=${price}`;
-          window.location.href = demoUrl;
+          payButton.disabled = true;
+          payButton.textContent = "Payment Method Coming Soon";
         }
       }
-    </script>
 
-    <form id="chapaForm" action="/api/pay" method="post" style="display: none">
-      <!-- Optional hidden inputs for plan/amount -->
-    </form>
+      // Initialize with Chapa selected
+      document.addEventListener("DOMContentLoaded", function () {
+        selectPayment("chapa");
+      });
+    </script>
   </body>
 </html>

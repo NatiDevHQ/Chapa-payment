@@ -2,29 +2,309 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Successful</title>
     <style>
+      :root {
+        --primary: #4361ee;
+        --success: #4cc9f0;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --border-radius: 16px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
       body {
-        font-family: Arial;
-        background: #f2f2f2;
-        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .success-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 50px 40px;
+        box-shadow: var(--shadow);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .success-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, var(--success), #4895ef);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        font-size: 3rem;
+        color: white;
+        animation: bounce 1s ease-in-out;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .success-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 10px;
+      }
+
+      .success-subtitle {
+        font-size: 1.2rem;
+        color: #6c757d;
+        margin-bottom: 40px;
+      }
+
+      .transaction-details {
+        background: var(--light);
+        border-radius: 12px;
+        padding: 30px;
+        margin: 30px 0;
+        text-align: left;
+      }
+
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .detail-item:last-child {
+        border-bottom: none;
+      }
+
+      .detail-label {
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .detail-value {
+        color: #6c757d;
+      }
+
+      .status-badge {
+        background: var(--success);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .btn {
+        padding: 15px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
         text-align: center;
       }
-      .success {
-        background: #2ecc71;
+
+      .btn-primary {
+        background: var(--primary);
         color: white;
-        padding: 20px;
-        border-radius: 10px;
-        display: inline-block;
-        margin-top: 50px;
+      }
+
+      .btn-primary:hover {
+        background: #3a56d4;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: var(--primary);
+        border-radius: 50%;
+        animation: confetti-fall 5s linear infinite;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(1000px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .thank-you {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+      }
+
+      .thank-you p {
+        color: #6c757d;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
+
+        .success-card {
+          padding: 30px 20px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="success">
-      <h2>Payment is Successful!</h2>
-      <p>Thank you for your transaction.</p>
-      <button onclick="window.location.href='/'">Return to Dashboard</button>
+    <div class="container">
+      <div class="success-card">
+        <!-- Confetti Animation -->
+        <div id="confetti-container"></div>
+
+        <div class="success-icon">✅</div>
+
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-subtitle">Thank you for your purchase</p>
+
+        <div class="transaction-details">
+          <div class="detail-item">
+            <span class="detail-label">Transaction ID:</span>
+            <span class="detail-value"><%= transaction.transactionId %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Plan:</span>
+            <span class="detail-value"><%= transaction.plan %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Amount:</span>
+            <span class="detail-value"><%= transaction.amount %> ETB</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Payment Method:</span>
+            <span class="detail-value"><%= transaction.method %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Date & Time:</span>
+            <span class="detail-value"><%= transaction.date %></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Status:</span>
+            <span class="detail-value status-badge"
+              ><%= transaction.status %></span
+            >
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-outline" onclick="generateReceipt()">
+            📄 Download Receipt
+          </button>
+          <a href="/" class="btn btn-primary"> 🏠 Return to Dashboard </a>
+        </div>
+
+        <div class="thank-you">
+          <p>📧 A confirmation email has been sent to your email address</p>
+          <p>🛠️ Your account will be activated immediately</p>
+          <p>📞 Need help? Contact our support team</p>
+        </div>
+      </div>
     </div>
+
+    <script>
+      // Create confetti effect
+      function createConfetti() {
+        const container = document.getElementById("confetti-container");
+        const colors = ["#4361ee", "#7209b7", "#4cc9f0", "#f72585", "#4895ef"];
+
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 5 + "s";
+          confetti.style.width = Math.random() * 10 + 5 + "px";
+          confetti.style.height = confetti.style.width;
+          container.appendChild(confetti);
+        }
+      }
+
+      // Generate PDF receipt
+      function generateReceipt() {
+        const sessionId = "<%= sessionId %>";
+
+        // In a real application, this would generate and download a PDF
+        // For now, we'll simulate the process
+        fetch(`/api/generate-receipt?session=${sessionId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            alert(
+              "Receipt generated successfully! In a real application, this would download a PDF."
+            );
+            console.log("Receipt data:", data);
+          })
+          .catch((error) => {
+            console.error("Error generating receipt:", error);
+            alert("Error generating receipt. Please try again.");
+          });
+      }
+
+      // Initialize confetti when page loads
+      document.addEventListener("DOMContentLoaded", createConfetti);
+    </script>
   </body>
 </html>

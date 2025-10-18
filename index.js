@@ -1,78 +1,109 @@
-/* 
-  CHAPA API PAYMENT INTEGRATION TEST
-  Required: Chapa secret key || GET THE KEY BY REGISTERING @ https://dashboard.chapa.co/register
-*/
-
+/* CHAPA API PAYMENT INTEGRATION - ENHANCED */
 const express = require("express");
 const app = express();
 const axios = require("axios").default;
 require("dotenv").config();
-const PORT = process.env.PORT || 4400;
+const path = require("path");
 
+const PORT = process.env.PORT || 4400;
 const CHAPA_URL =
   process.env.CHAPA_URL || "https://api.chapa.co/v1/transaction/initialize";
-const CHAPA_AUTH = process.env.CHAPA_AUTH; // Add your Chapa Secret Key in .env
+const CHAPA_AUTH = process.env.CHAPA_AUTH;
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
-// Chapa header config
+// Chapa configuration
 const config = {
   headers: {
     Authorization: `Bearer ${CHAPA_AUTH}`,
   },
 };
 
-// ===== Routes ===== //
+// Store selected plans temporarily (in production, use a proper session/database)
+const userSelections = new Map();
 
-// Status Dashboard
+// Enhanced Routes
 app.get("/", (req, res) => {
-  res.render("index");
+  const paymentStatus = "pending"; // You can dynamically set this based on actual payment status
+  res.render("index", { paymentStatus });
 });
 
-// Plan Selection Page
 app.get("/plans", (req, res) => {
   res.render("plans");
 });
 
-// Payment Method Page
+app.post("/select-plan", (req, res) => {
+  const { plan, amount, features } = req.body;
+  const sessionId = Date.now().toString(); // Simple session simulation
+
+  userSelections.set(sessionId, {
+    plan,
+    amount,
+    features: features ? features.split(",") : [],
+    selectedAt: new Date(),
+  });
+
+  res.redirect(`/payment-method?session=${sessionId}`);
+});
+
 app.get("/payment-method", (req, res) => {
-  res.render("payment-method");
+  const sessionId = req.query.session;
+  const selection = userSelections.get(sessionId);
+
+  if (!selection) {
+    return res.redirect("/plans");
+  }
+
+  res.render("payment-method", {
+    plan: selection.plan,
+    amount: selection.amount,
+    sessionId: sessionId,
+  });
 });
 
-// Demo Payment Success Page
-app.get("/success-demo", (req, res) => {
-  const { plan, amount } = req.query;
-  res.render("success-demo", { plan, amount });
-});
-
-// Real Chapa Payment Endpoint
+// Updated payment endpoint with dynamic amounts
 app.post("/api/pay", async (req, res) => {
+  const { amount, plan, sessionId } = req.body;
+
   const CALLBACK_URL = "http://localhost:4400/api/verify-payment/";
-  const RETURN_URL = "http://localhost:4400/api/payment-success/";
-  const TEXT_REF = "tx-myecommerce12345-" + Date.now();
+  const RETURN_URL = `http://localhost:4400/api/payment-success?session=${sessionId}`;
+
+  const TEXT_REF = `tx-${plan}-${Date.now()}`;
+
+  // Store transaction reference with session
+  const selection = userSelections.get(sessionId);
+  if (selection) {
+    selection.tx_ref = TEXT_REF;
+    userSelections.set(sessionId, selection);
+  }
 
   const data = {
-    amount: "100",
+    amount: amount || "100",
     currency: "ETB",
-    email: "ato@ekele.com",
-    first_name: "Ato",
-    last_name: "Ekele",
+    email: "customer@example.com",
+    first_name: "Customer",
+    last_name: "User",
     tx_ref: TEXT_REF,
     callback_url: CALLBACK_URL + TEXT_REF,
     return_url: RETURN_URL,
+    customization: {
+      title: `Payment for ${plan} Plan`,
+      description: `Subscription payment for ${plan} plan`,
+    },
   };
 
   try {
     const response = await axios.post(CHAPA_URL, data, config);
     res.redirect(response.data.data.checkout_url);
   } catch (err) {
-    console.log(err);
-    res.send("Payment initiation failed");
+    console.error("Payment initialization error:", err);
+    res.redirect("/payment-error");
   }
 });
 
-// Chapa Verification Endpoint
+// Verification endpoint
 app.get("/api/verify-payment/:id", async (req, res) => {
   try {
     await axios.get(
@@ -80,16 +111,64 @@ app.get("/api/verify-payment/:id", async (req, res) => {
       config
     );
     console.log("Payment was successfully verified");
-    res.send("Verified successfully");
+    res.status(200).send("Verified");
   } catch (err) {
     console.log("Payment can't be verified", err);
-    res.send("Verification failed");
+    res.status(400).send("Verification failed");
   }
 });
 
-// Real Chapa Payment Success Page
+// Enhanced success page with transaction details
 app.get("/api/payment-success", async (req, res) => {
-  res.render("success");
+  const sessionId = req.query.session;
+  const selection = userSelections.get(sessionId);
+
+  if (!selection) {
+    return res.redirect("/");
+  }
+
+  // Simulate transaction details (in real app, get from Chapa verification)
+  const transactionDetails = {
+    transactionId: selection.tx_ref || `chapa-${Date.now()}`,
+    plan: selection.plan,
+    amount: selection.amount,
+    method: "Chapa Pay",
+    date: new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    status: "completed",
+  };
+
+  res.render("success", {
+    transaction: transactionDetails,
+    sessionId: sessionId,
+  });
 });
 
-app.listen(PORT, () => console.log("Server listening on port:", PORT));
+// PDF Receipt Generation endpoint
+app.get("/api/generate-receipt", (req, res) => {
+  const sessionId = req.query.session;
+  const selection = userSelections.get(sessionId);
+
+  if (!selection) {
+    return res.status(404).send("Transaction not found");
+  }
+
+  // In a real application, you would use a PDF generation library like pdfkit
+  // For now, we'll simulate with a simple response
+  res.json({
+    message: "PDF receipt generation endpoint",
+    transaction: {
+      id: selection.tx_ref,
+      plan: selection.plan,
+      amount: selection.amount,
+      date: new Date().toISOString(),
+    },
+  });
+});
+
+app.listen(PORT, () => console.log("Enhanced server listening on port:", PORT));

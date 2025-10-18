@@ -2,70 +2,200 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Payment Status Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Dashboard</title>
     <style>
+      :root {
+        --primary: #4361ee;
+        --success: #4cc9f0;
+        --warning: #f72585;
+        --danger: #f72585;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --border-radius: 12px;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
       body {
-        font-family: Arial;
-        background: #f2f2f2;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 20px;
       }
+
+      .container {
+        max-width: 500px;
+        width: 100%;
+      }
+
       .status-card {
-        width: 300px;
-        padding: 20px;
-        margin: auto;
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 40px;
+        box-shadow: var(--shadow);
         text-align: center;
-        border-radius: 10px;
+        transition: var(--transition);
+      }
+
+      .status-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .status-indicator {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
         color: white;
+        transition: var(--transition);
       }
-      .red {
-        background: #e74c3c;
+
+      .status-pending {
+        background: var(--warning);
       }
-      .yellow {
-        background: #f1c40f;
-        color: black;
+      .status-complete {
+        background: var(--success);
       }
-      .green {
-        background: #2ecc71;
+      .status-overdue {
+        background: var(--danger);
       }
-      button {
-        margin-top: 20px;
-        padding: 10px 20px;
+
+      .status-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+
+      .status-description {
+        color: #6c757d;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        background: var(--primary);
+        color: white;
         border: none;
-        border-radius: 5px;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
         cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        background: #3a56d4;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+      }
+
+      .btn-block {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .payment-info {
+        background: var(--light);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .info-label {
+        font-weight: 600;
+        color: var(--dark);
+        flex: 1;
+      }
+
+      .info-value {
+        color: #6c757d;
+        flex: 1;
+        text-align: right;
       }
     </style>
   </head>
   <body>
-    <div id="statusCard" class="status-card">
-      <h2>Payment Status</h2>
-      <p id="statusText">Loading...</p>
-      <button onclick="continueFlow()">Continue</button>
+    <div class="container">
+      <div class="status-card">
+        <div class="status-indicator status-<%= paymentStatus %>">
+          <% if (paymentStatus === 'pending') { %> ⚡ <% } else if
+          (paymentStatus === 'complete') { %> ✅ <% } else { %> ❗ <% } %>
+        </div>
+
+        <h1 class="status-title">
+          <% if (paymentStatus === 'pending') { %> Payment Pending <% } else if
+          (paymentStatus === 'complete') { %> Payment Complete! <% } else { %>
+          Action Required <% } %>
+        </h1>
+
+        <p class="status-description">
+          <% if (paymentStatus === 'pending') { %> Your subscription payment is
+          pending. Complete the payment process to continue enjoying our
+          services. <% } else if (paymentStatus === 'complete') { %> Thank you!
+          Your payment has been successfully processed. You're all set! <% }
+          else { %> Your payment deadline is approaching. Please complete your
+          payment to avoid service interruption. <% } %>
+        </p>
+
+        <div class="payment-info">
+          <div class="info-item">
+            <span class="info-label">Current Status:</span>
+            <span class="info-value">
+              <% if (paymentStatus === 'pending') { %>
+              <span style="color: var(--warning)">Pending</span>
+              <% } else if (paymentStatus === 'complete') { %>
+              <span style="color: var(--success)">Active</span>
+              <% } else { %>
+              <span style="color: var(--danger)">Overdue</span>
+              <% } %>
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Next Billing:</span>
+            <span class="info-value">30 days</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Last Updated:</span>
+            <span class="info-value"
+              ><%= new Date().toLocaleDateString() %></span
+            >
+          </div>
+        </div>
+
+        <a href="/plans" class="btn btn-block" style="margin-top: 20px">
+          <% if (paymentStatus === 'complete') { %> Manage Subscription <% }
+          else { %> Continue to Payment <% } %>
+        </a>
+      </div>
     </div>
-
-    <form id="chapaForm" action="/api/pay" method="post" style="display: none">
-      <button type="submit">Real Chapa Checkout</button>
-    </form>
-
-    <script>
-      let status = localStorage.getItem("paymentStatus") || "pending";
-      const card = document.getElementById("statusCard");
-      const text = document.getElementById("statusText");
-
-      if (status === "paid") {
-        card.className = "status-card green";
-        text.innerText = "Payment Complete";
-      } else if (status === "pending") {
-        card.className = "status-card yellow";
-        text.innerText = "Pending Payment";
-      } else {
-        card.className = "status-card red";
-        text.innerText = "Deadline Near / Overdue";
-      }
-
-      function continueFlow() {
-        window.location.href = "/plans";
-      }
-    </script>
   </body>
 </html>
