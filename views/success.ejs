@@ -4,262 +4,108 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Successful</title>
-    <style>
-      :root {
-        --primary: #4361ee;
-        --success: #4cc9f0;
-        --light: #f8f9fa;
-        --dark: #212529;
-        --border-radius: 16px;
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        --transition: all 0.3s ease;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 40px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .container {
-        max-width: 600px;
-        width: 100%;
-      }
-
-      .success-card {
-        background: white;
-        border-radius: var(--border-radius);
-        padding: 50px 40px;
-        box-shadow: var(--shadow);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .success-icon {
-        width: 100px;
-        height: 100px;
-        background: linear-gradient(135deg, var(--success), #4895ef);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 30px;
-        font-size: 3rem;
-        color: white;
-        animation: bounce 1s ease-in-out;
-      }
-
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
-      }
-
-      .success-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--dark);
-        margin-bottom: 10px;
-      }
-
-      .success-subtitle {
-        font-size: 1.2rem;
-        color: #6c757d;
-        margin-bottom: 40px;
-      }
-
-      .transaction-details {
-        background: var(--light);
-        border-radius: 12px;
-        padding: 30px;
-        margin: 30px 0;
-        text-align: left;
-      }
-
-      .detail-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 0;
-        border-bottom: 1px solid #e9ecef;
-      }
-
-      .detail-item:last-child {
-        border-bottom: none;
-      }
-
-      .detail-label {
-        font-weight: 600;
-        color: var(--dark);
-      }
-
-      .detail-value {
-        color: #6c757d;
-      }
-
-      .status-badge {
-        background: var(--success);
-        color: white;
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-      }
-
-      .action-buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 30px;
-      }
-
-      .btn {
-        padding: 15px 25px;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: var(--transition);
-        border: none;
-        cursor: pointer;
-        text-align: center;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background: #3a56d4;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-      }
-
-      .btn-outline {
-        background: transparent;
-        color: var(--primary);
-        border: 2px solid var(--primary);
-      }
-
-      .btn-outline:hover {
-        background: var(--primary);
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      .confetti {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: var(--primary);
-        border-radius: 50%;
-        animation: confetti-fall 5s linear infinite;
-      }
-
-      @keyframes confetti-fall {
-        0% {
-          transform: translateY(-100px) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(1000px) rotate(360deg);
-          opacity: 0;
-        }
-      }
-
-      .thank-you {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #e9ecef;
-      }
-
-      .thank-you p {
-        color: #6c757d;
-        margin-bottom: 10px;
-      }
-
-      @media (max-width: 768px) {
-        .action-buttons {
-          grid-template-columns: 1fr;
-        }
-
-        .success-card {
-          padding: 30px 20px;
-        }
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="container">
-      <div class="success-card">
-        <!-- Confetti Animation -->
-        <div id="confetti-container"></div>
+  <body
+    class="bg-gradient-to-br from-green-400 to-blue-500 min-h-screen flex items-center justify-center p-6"
+  >
+    <div class="max-w-2xl w-full">
+      <div
+        class="bg-white rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden"
+      >
+        <!-- Confetti Container -->
+        <div
+          id="confetti-container"
+          class="absolute inset-0 pointer-events-none"
+        ></div>
 
-        <div class="success-icon">✅</div>
+        <!-- Success Icon -->
+        <div
+          class="w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white animate-bounce"
+        >
+          <i class="fas fa-check"></i>
+        </div>
 
-        <h1 class="success-title">Payment Successful!</h1>
-        <p class="success-subtitle">Thank you for your purchase</p>
+        <!-- Success Title -->
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+          Payment Successful!
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">Thank you for your purchase</p>
 
-        <div class="transaction-details">
-          <div class="detail-item">
-            <span class="detail-label">Transaction ID:</span>
-            <span class="detail-value"><%= transaction.transactionId %></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Plan:</span>
-            <span class="detail-value"><%= transaction.plan %></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Amount:</span>
-            <span class="detail-value"><%= transaction.amount %> ETB</span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Payment Method:</span>
-            <span class="detail-value"><%= transaction.method %></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Date & Time:</span>
-            <span class="detail-value"><%= transaction.date %></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Status:</span>
-            <span class="detail-value status-badge"
-              ><%= transaction.status %></span
-            >
+        <!-- Transaction Details -->
+        <div class="bg-gray-50 rounded-xl p-6 mb-8 text-left">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex justify-between py-2 border-b">
+              <span class="font-semibold text-gray-700">Transaction ID:</span>
+              <span class="text-gray-600 font-mono text-sm"
+                ><%= transaction.transactionId %></span
+              >
+            </div>
+            <div class="flex justify-between py-2 border-b">
+              <span class="font-semibold text-gray-700">Plan:</span>
+              <span class="text-gray-600"><%= transaction.plan %></span>
+            </div>
+            <div class="flex justify-between py-2 border-b">
+              <span class="font-semibold text-gray-700">Amount:</span>
+              <span class="text-green-600 font-bold"
+                ><%= transaction.amount %> ETB</span
+              >
+            </div>
+            <div class="flex justify-between py-2 border-b">
+              <span class="font-semibold text-gray-700">Payment Method:</span>
+              <span class="text-gray-600"><%= transaction.method %></span>
+            </div>
+            <div class="flex justify-between py-2 border-b md:col-span-2">
+              <span class="font-semibold text-gray-700">Date & Time:</span>
+              <span class="text-gray-600"><%= transaction.date %></span>
+            </div>
+            <div class="flex justify-between py-2 md:col-span-2">
+              <span class="font-semibold text-gray-700">Status:</span>
+              <span
+                class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
+              >
+                <%= transaction.status %>
+              </span>
+            </div>
           </div>
         </div>
 
-        <div class="action-buttons">
-          <button class="btn btn-outline" onclick="generateReceipt()">
-            📄 Download Receipt
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <button
+            onclick="generateReceipt()"
+            class="bg-white border-2 border-blue-500 text-blue-500 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+          >
+            <i class="fas fa-receipt mr-2"></i>Download Receipt
           </button>
-          <a href="/" class="btn btn-primary"> 🏠 Return to Dashboard </a>
+          <a
+            href="/"
+            class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+          >
+            <i class="fas fa-home mr-2"></i>Return to Dashboard
+          </a>
         </div>
 
-        <div class="thank-you">
-          <p>📧 A confirmation email has been sent to your email address</p>
-          <p>🛠️ Your account will be activated immediately</p>
-          <p>📞 Need help? Contact our support team</p>
+        <!-- Thank You Message -->
+        <div class="border-t pt-6">
+          <div class="space-y-2 text-gray-600">
+            <p class="flex items-center justify-center">
+              <i class="fas fa-envelope text-blue-500 mr-2"></i>
+              A confirmation email has been sent to your email address
+            </p>
+            <p class="flex items-center justify-center">
+              <i class="fas fa-bolt text-green-500 mr-2"></i>
+              Your account will be activated immediately
+            </p>
+            <p class="flex items-center justify-center">
+              <i class="fas fa-headset text-purple-500 mr-2"></i>
+              Need help? Contact our support team
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -268,17 +114,17 @@
       // Create confetti effect
       function createConfetti() {
         const container = document.getElementById("confetti-container");
-        const colors = ["#4361ee", "#7209b7", "#4cc9f0", "#f72585", "#4895ef"];
+        const colors = ["#10B981", "#3B82F6", "#8B5CF6", "#EF4444", "#F59E0B"];
 
         for (let i = 0; i < 50; i++) {
           const confetti = document.createElement("div");
-          confetti.className = "confetti";
+          confetti.className = "absolute w-4 h-4 rounded-full animate-bounce";
           confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.top = "-20px";
           confetti.style.background =
             colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.animationDelay = Math.random() * 5 + "s";
-          confetti.style.width = Math.random() * 10 + 5 + "px";
-          confetti.style.height = confetti.style.width;
+          confetti.style.animationDelay = Math.random() * 3 + "s";
+          confetti.style.opacity = "0.8";
           container.appendChild(confetti);
         }
       }
@@ -287,8 +133,6 @@
       function generateReceipt() {
         const sessionId = "<%= sessionId %>";
 
-        // In a real application, this would generate and download a PDF
-        // For now, we'll simulate the process
         fetch(`/api/generate-receipt?session=${sessionId}`)
           .then((response) => response.json())
           .then((data) => {
@@ -303,7 +147,7 @@
           });
       }
 
-      // Initialize confetti when page loads
+      // Initialize confetti
       document.addEventListener("DOMContentLoaded", createConfetti);
     </script>
   </body>

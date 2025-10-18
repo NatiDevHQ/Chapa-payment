@@ -4,286 +4,149 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Method</title>
-    <style>
-      :root {
-        --primary: #4361ee;
-        --secondary: #7209b7;
-        --success: #4cc9f0;
-        --light: #f8f9fa;
-        --dark: #212529;
-        --border-radius: 16px;
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        --transition: all 0.3s ease;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 40px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .container {
-        max-width: 800px;
-        width: 100%;
-      }
-
-      .header {
-        text-align: center;
-        margin-bottom: 40px;
-        color: white;
-      }
-
-      .header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        font-weight: 700;
-      }
-
-      .header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-      }
-
-      .payment-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-      }
-
-      .order-summary {
-        background: white;
-        border-radius: var(--border-radius);
-        padding: 30px;
-        box-shadow: var(--shadow);
-      }
-
-      .payment-methods {
-        background: white;
-        border-radius: var(--border-radius);
-        padding: 30px;
-        box-shadow: var(--shadow);
-      }
-
-      .section-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: var(--dark);
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--light);
-      }
-
-      .plan-details {
-        background: var(--light);
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-      }
-
-      .plan-name {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--primary);
-        margin-bottom: 10px;
-      }
-
-      .plan-price {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--dark);
-      }
-
-      .features-list {
-        list-style: none;
-        margin: 20px 0;
-      }
-
-      .features-list li {
-        padding: 8px 0;
-        color: #6c757d;
-        border-bottom: 1px solid #f1f3f4;
-      }
-
-      .features-list li:before {
-        content: "✓";
-        color: var(--success);
-        font-weight: bold;
-        margin-right: 10px;
-      }
-
-      .payment-option {
-        border: 2px solid #e9ecef;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 15px;
-        cursor: pointer;
-        transition: var(--transition);
-      }
-
-      .payment-option:hover {
-        border-color: var(--primary);
-        background: #f8f9ff;
-      }
-
-      .payment-option.selected {
-        border-color: var(--primary);
-        background: #f8f9ff;
-      }
-
-      .payment-icon {
-        font-size: 2rem;
-        margin-bottom: 10px;
-      }
-
-      .payment-name {
-        font-weight: 600;
-        margin-bottom: 5px;
-        color: var(--dark);
-      }
-
-      .payment-description {
-        font-size: 0.9rem;
-        color: #6c757d;
-      }
-
-      .btn-pay {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
-        border: none;
-        padding: 18px 40px;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-        width: 100%;
-        margin-top: 20px;
-      }
-
-      .btn-pay:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
-      }
-
-      .btn-pay:disabled {
-        background: #6c757d;
-        cursor: not-allowed;
-        transform: none;
-      }
-
-      .navigation {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-      }
-
-      .btn-back {
-        background: transparent;
-        color: white;
-        border: 2px solid white;
-        padding: 12px 30px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: var(--transition);
-      }
-
-      .btn-back:hover {
-        background: white;
-        color: var(--primary);
-      }
-
-      .security-notice {
-        background: #e7f3ff;
-        border: 1px solid #b3d9ff;
-        border-radius: 8px;
-        padding: 15px;
-        margin-top: 20px;
-        text-align: center;
-        color: #0066cc;
-        font-size: 0.9rem;
-      }
-
-      @media (max-width: 768px) {
-        .payment-container {
-          grid-template-columns: 1fr;
-        }
-
-        .container {
-          max-width: 100%;
-        }
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1>Payment Method</h1>
-        <p>Choose how you'd like to pay</p>
+  <body
+    class="bg-gradient-to-br from-blue-600 to-purple-700 min-h-screen flex items-center justify-center p-6"
+  >
+    <div class="max-w-6xl w-full">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">Payment Method</h1>
+        <p class="text-xl text-blue-100">Choose how you'd like to pay</p>
       </div>
 
-      <div class="payment-container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Order Summary -->
-        <div class="order-summary">
-          <h2 class="section-title">Order Summary</h2>
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">
+            Order Summary
+          </h2>
 
-          <div class="plan-details">
-            <div class="plan-name"><%= plan %> Plan</div>
-            <div class="plan-price"><%= amount %> ETB</div>
+          <div class="bg-gray-50 rounded-xl p-6 mb-6">
+            <div class="text-2xl font-bold text-blue-600 mb-2">
+              <%= plan %> Plan
+            </div>
+            <div class="text-3xl font-bold text-gray-800">
+              <%= amount %> ETB
+            </div>
           </div>
 
-          <div class="billing-info">
-            <h3 style="margin-bottom: 15px; color: var(--dark)">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">
               What's included:
             </h3>
-            <ul class="features-list">
-              <li>Full access to selected features</li>
-              <li>24/7 customer support</li>
-              <li>Regular updates and maintenance</li>
-              <li>Secure payment processing</li>
-              <li>30-day money back guarantee</li>
+            <ul class="space-y-3">
+              <li class="flex items-center text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                <span>Full access to selected features</span>
+              </li>
+              <li class="flex items-center text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                <span>24/7 customer support</span>
+              </li>
+              <li class="flex items-center text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                <span>Regular updates and maintenance</span>
+              </li>
+              <li class="flex items-center text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                <span>Secure payment processing</span>
+              </li>
+              <li class="flex items-center text-gray-600">
+                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                <span>30-day money back guarantee</span>
+              </li>
             </ul>
           </div>
 
-          <div class="security-notice">
-            🔒 Your payment is secure and encrypted
+          <div
+            class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center"
+          >
+            <div class="flex items-center justify-center text-blue-600 mb-2">
+              <i class="fas fa-shield-alt text-xl mr-2"></i>
+              <span class="font-semibold"
+                >Your payment is secure and encrypted</span
+              >
+            </div>
           </div>
         </div>
 
         <!-- Payment Methods -->
-        <div class="payment-methods">
-          <h2 class="section-title">Choose Payment Method</h2>
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">
+            Choose Payment Method
+          </h2>
 
-          <div class="payment-option selected" onclick="selectPayment('chapa')">
-            <div class="payment-icon">🌐</div>
-            <div class="payment-name">Chapa Pay</div>
-            <div class="payment-description">Secure payment via Chapa</div>
-          </div>
-
-          <!-- Additional payment methods can be added here -->
-          <div class="payment-option" onclick="selectPayment('bank')">
-            <div class="payment-icon">🏦</div>
-            <div class="payment-name">Bank Transfer</div>
-            <div class="payment-description">
-              Direct bank transfer (Coming soon)
+          <!-- Chapa Pay Option -->
+          <div
+            class="payment-option border-2 border-blue-500 bg-blue-50 rounded-xl p-6 mb-4 cursor-pointer transform transition-all duration-300 hover:scale-105"
+            onclick="selectPayment('chapa')"
+          >
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl mr-4"
+              >
+                <i class="fas fa-globe"></i>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-gray-800 text-lg">Chapa Pay</div>
+                <div class="text-gray-600">Secure payment via Chapa</div>
+              </div>
+              <div
+                class="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center"
+              >
+                <div
+                  class="w-3 h-3 rounded-full bg-blue-500 payment-radio"
+                ></div>
+              </div>
             </div>
           </div>
 
-          <div class="payment-option" onclick="selectPayment('mobile')">
-            <div class="payment-icon">📱</div>
-            <div class="payment-name">Mobile Money</div>
-            <div class="payment-description">
-              Telebirr & other mobile wallets (Coming soon)
+          <!-- Other Payment Options -->
+          <div
+            class="payment-option border-2 border-gray-300 rounded-xl p-6 mb-4 cursor-pointer transform transition-all duration-300 hover:scale-105 opacity-60"
+            onclick="selectPayment('bank')"
+          >
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center text-white text-xl mr-4"
+              >
+                <i class="fas fa-university"></i>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-gray-800 text-lg">
+                  Bank Transfer
+                </div>
+                <div class="text-gray-600">
+                  Direct bank transfer (Coming soon)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="payment-option border-2 border-gray-300 rounded-xl p-6 mb-6 cursor-pointer transform transition-all duration-300 hover:scale-105 opacity-60"
+            onclick="selectPayment('mobile')"
+          >
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-gray-400 rounded-full flex items-center justify-center text-white text-xl mr-4"
+              >
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="flex-1">
+                <div class="font-semibold text-gray-800 text-lg">
+                  Mobile Money
+                </div>
+                <div class="text-gray-600">
+                  Telebirr & other mobile wallets (Coming soon)
+                </div>
+              </div>
             </div>
           </div>
 
@@ -292,13 +155,23 @@
             <input type="hidden" name="amount" value="<%= amount %>" />
             <input type="hidden" name="plan" value="<%= plan %>" />
             <input type="hidden" name="sessionId" value="<%= sessionId %>" />
-            <button type="submit" class="btn-pay" id="payButton">
-              Pay <%= amount %> ETB with Chapa
+            <button
+              type="submit"
+              id="payButton"
+              class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg"
+            >
+              <i class="fas fa-lock mr-2"></i>Pay <%= amount %> ETB with Chapa
             </button>
           </form>
 
-          <div class="navigation">
-            <a href="/plans" class="btn-back">← Back to Plans</a>
+          <!-- Navigation -->
+          <div class="flex justify-between mt-6">
+            <a
+              href="/plans"
+              class="inline-flex items-center bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
+            >
+              <i class="fas fa-arrow-left mr-2"></i>Back to Plans
+            </a>
           </div>
         </div>
       </div>
@@ -306,23 +179,53 @@
 
     <script>
       function selectPayment(method) {
-        // Remove selected class from all options
+        // Remove selected styles from all options
         document.querySelectorAll(".payment-option").forEach((option) => {
-          option.classList.remove("selected");
+          option.classList.remove("border-blue-500", "bg-blue-50");
+          option.classList.add("border-gray-300");
+
+          const radio = option.querySelector(".payment-radio");
+          if (radio) {
+            radio.classList.remove("bg-blue-500");
+          }
         });
 
-        // Add selected class to clicked option
-        event.currentTarget.classList.add("selected");
-
-        // Enable/disable payment button based on availability
+        // Enable/disable based on method
         const payButton = document.getElementById("payButton");
+
         if (method === "chapa") {
+          // Add selected styles
+          event.currentTarget.classList.remove("border-gray-300");
+          event.currentTarget.classList.add("border-blue-500", "bg-blue-50");
+
+          const radio = event.currentTarget.querySelector(".payment-radio");
+          if (radio) {
+            radio.classList.add("bg-blue-500");
+          }
+
+          // Enable Chapa payment
           payButton.disabled = false;
-          payButton.textContent = `Pay <%= amount %> ETB with Chapa`;
-          document.getElementById("chapaForm").style.display = "block";
+          payButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+          payButton.classList.add(
+            "bg-gradient-to-r",
+            "from-blue-500",
+            "to-purple-600",
+            "hover:from-blue-600",
+            "hover:to-purple-700"
+          );
+          payButton.innerHTML = `<i class="fas fa-lock mr-2"></i>Pay <%= amount %> ETB with Chapa`;
         } else {
+          // Disable payment for other methods
           payButton.disabled = true;
-          payButton.textContent = "Payment Method Coming Soon";
+          payButton.classList.remove(
+            "bg-gradient-to-r",
+            "from-blue-500",
+            "to-purple-600",
+            "hover:from-blue-600",
+            "hover:to-purple-700"
+          );
+          payButton.classList.add("bg-gray-400", "cursor-not-allowed");
+          payButton.innerHTML = `<i class="fas fa-clock mr-2"></i>Payment Method Coming Soon`;
         }
       }
 

@@ -4,227 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Choose Your Plan</title>
-    <style>
-      :root {
-        --primary: #4361ee;
-        --secondary: #7209b7;
-        --success: #4cc9f0;
-        --light: #f8f9fa;
-        --dark: #212529;
-        --border-radius: 16px;
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        --transition: all 0.3s ease;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 40px 20px;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .header {
-        text-align: center;
-        margin-bottom: 50px;
-        color: white;
-      }
-
-      .header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        font-weight: 700;
-      }
-
-      .header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-      }
-
-      .plans-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-      }
-
-      .plan-card {
-        background: white;
-        border-radius: var(--border-radius);
-        padding: 40px 30px;
-        text-align: center;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .plan-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      }
-
-      .plan-card.popular {
-        border: 3px solid var(--primary);
-        transform: scale(1.05);
-      }
-
-      .plan-card.popular:hover {
-        transform: scale(1.05) translateY(-10px);
-      }
-
-      .popular-badge {
-        position: absolute;
-        top: 20px;
-        right: -30px;
-        background: var(--primary);
-        color: white;
-        padding: 5px 40px;
-        transform: rotate(45deg);
-        font-size: 0.8rem;
-        font-weight: 600;
-      }
-
-      .plan-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 2rem;
-        color: white;
-      }
-
-      .plan-name {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--dark);
-      }
-
-      .plan-price {
-        font-size: 3rem;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 20px;
-      }
-
-      .plan-price span {
-        font-size: 1rem;
-        color: #6c757d;
-      }
-
-      .plan-features {
-        list-style: none;
-        margin: 30px 0;
-        text-align: left;
-      }
-
-      .plan-features li {
-        padding: 10px 0;
-        border-bottom: 1px solid #f1f3f4;
-        color: #6c757d;
-      }
-
-      .plan-features li:before {
-        content: "✓";
-        color: var(--success);
-        font-weight: bold;
-        margin-right: 10px;
-      }
-
-      .btn-plan {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 15px 40px;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-        width: 100%;
-      }
-
-      .btn-plan:hover {
-        background: #3a56d4;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
-      }
-
-      .btn-popular {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-      }
-
-      .navigation {
-        text-align: center;
-        margin-top: 40px;
-      }
-
-      .btn-back {
-        background: transparent;
-        color: white;
-        border: 2px solid white;
-        padding: 12px 30px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: var(--transition);
-        display: inline-block;
-      }
-
-      .btn-back:hover {
-        background: white;
-        color: var(--primary);
-      }
-
-      @media (max-width: 768px) {
-        .plans-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .plan-card.popular {
-          transform: none;
-        }
-
-        .plan-card.popular:hover {
-          transform: translateY(-10px);
-        }
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1>Choose Your Plan</h1>
-        <p>Select the perfect plan that fits your needs</p>
+  <body
+    class="bg-gradient-to-br from-blue-600 to-purple-700 min-h-screen py-12 px-4"
+  >
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">Choose Your Plan</h1>
+        <p class="text-xl text-blue-100">
+          Select the perfect plan that fits your needs
+        </p>
       </div>
 
-      <div class="plans-grid">
+      <!-- Plans Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <!-- Basic Plan -->
-        <div class="plan-card">
-          <div class="plan-icon">🚀</div>
-          <h2 class="plan-name">Basic</h2>
-          <div class="plan-price">100 <span>ETB/month</span></div>
+        <div
+          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative"
+        >
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+            >
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Basic</h2>
+            <div class="text-4xl font-bold text-blue-600 mb-4">
+              100 <span class="text-lg text-gray-600">ETB/month</span>
+            </div>
+          </div>
 
-          <ul class="plan-features">
-            <li>10GB Storage</li>
-            <li>Basic Support</li>
-            <li>5 Users</li>
-            <li>Email Support</li>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>10GB Storage</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Basic Support</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>5 Users</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Email Support</span>
+            </li>
           </ul>
 
           <form action="/select-plan" method="POST">
@@ -235,23 +67,57 @@
               name="features"
               value="10GB Storage,Basic Support,5 Users,Email Support"
             />
-            <button type="submit" class="btn-plan">Get Started</button>
+            <button
+              type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            >
+              Get Started
+            </button>
           </form>
         </div>
 
-        <!-- Standard Plan -->
-        <div class="plan-card popular">
-          <div class="popular-badge">POPULAR</div>
-          <div class="plan-icon">⭐</div>
-          <h2 class="plan-name">Standard</h2>
-          <div class="plan-price">200 <span>ETB/month</span></div>
+        <!-- Standard Plan (Popular) -->
+        <div
+          class="bg-white rounded-2xl shadow-2xl p-8 transform scale-105 relative border-4 border-blue-500"
+        >
+          <div
+            class="absolute top-6 -right-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-1 rotate-45 shadow-lg"
+          >
+            POPULAR
+          </div>
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+            >
+              <i class="fas fa-star"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Standard</h2>
+            <div class="text-4xl font-bold text-purple-600 mb-4">
+              200 <span class="text-lg text-gray-600">ETB/month</span>
+            </div>
+          </div>
 
-          <ul class="plan-features">
-            <li>50GB Storage</li>
-            <li>Priority Support</li>
-            <li>15 Users</li>
-            <li>Phone & Email Support</li>
-            <li>Advanced Analytics</li>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>50GB Storage</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Priority Support</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>15 Users</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Phone & Email Support</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Advanced Analytics</span>
+            </li>
           </ul>
 
           <form action="/select-plan" method="POST">
@@ -262,25 +128,56 @@
               name="features"
               value="50GB Storage,Priority Support,15 Users,Phone & Email Support,Advanced Analytics"
             />
-            <button type="submit" class="btn-plan btn-popular">
+            <button
+              type="submit"
+              class="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            >
               Get Started
             </button>
           </form>
         </div>
 
         <!-- Premium Plan -->
-        <div class="plan-card">
-          <div class="plan-icon">👑</div>
-          <h2 class="plan-name">Premium</h2>
-          <div class="plan-price">300 <span>ETB/month</span></div>
+        <div
+          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative"
+        >
+          <div class="text-center">
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+            >
+              <i class="fas fa-crown"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Premium</h2>
+            <div class="text-4xl font-bold text-orange-600 mb-4">
+              300 <span class="text-lg text-gray-600">ETB/month</span>
+            </div>
+          </div>
 
-          <ul class="plan-features">
-            <li>Unlimited Storage</li>
-            <li>24/7 Premium Support</li>
-            <li>Unlimited Users</li>
-            <li>Dedicated Account Manager</li>
-            <li>Custom Integrations</li>
-            <li>Advanced Security</li>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Unlimited Storage</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>24/7 Premium Support</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Unlimited Users</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Dedicated Account Manager</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Custom Integrations</span>
+            </li>
+            <li class="flex items-center text-gray-600">
+              <i class="fas fa-check text-green-500 mr-3"></i>
+              <span>Advanced Security</span>
+            </li>
           </ul>
 
           <form action="/select-plan" method="POST">
@@ -291,13 +188,24 @@
               name="features"
               value="Unlimited Storage,24/7 Premium Support,Unlimited Users,Dedicated Account Manager,Custom Integrations,Advanced Security"
             />
-            <button type="submit" class="btn-plan">Get Started</button>
+            <button
+              type="submit"
+              class="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            >
+              Get Started
+            </button>
           </form>
         </div>
       </div>
 
-      <div class="navigation">
-        <a href="/" class="btn-back">← Back to Dashboard</a>
+      <!-- Navigation -->
+      <div class="text-center mt-12">
+        <a
+          href="/"
+          class="inline-flex items-center bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm"
+        >
+          <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+        </a>
       </div>
     </div>
   </body>

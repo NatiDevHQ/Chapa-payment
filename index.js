@@ -1,4 +1,4 @@
-/* CHAPA API PAYMENT INTEGRATION - ENHANCED */
+/* CHAPA API PAYMENT INTEGRATION - TAILWIND VERSION */
 const express = require("express");
 const app = express();
 const axios = require("axios").default;
@@ -18,15 +18,16 @@ app.use(express.static(path.join(__dirname, "public")));
 const config = {
   headers: {
     Authorization: `Bearer ${CHAPA_AUTH}`,
+    "Content-Type": "application/json",
   },
 };
 
-// Store selected plans temporarily (in production, use a proper session/database)
+// Store selected plans temporarily
 const userSelections = new Map();
 
-// Enhanced Routes
+// Routes
 app.get("/", (req, res) => {
-  const paymentStatus = "pending"; // You can dynamically set this based on actual payment status
+  const paymentStatus = "pending";
   res.render("index", { paymentStatus });
 });
 
@@ -36,7 +37,7 @@ app.get("/plans", (req, res) => {
 
 app.post("/select-plan", (req, res) => {
   const { plan, amount, features } = req.body;
-  const sessionId = Date.now().toString(); // Simple session simulation
+  const sessionId = Date.now().toString();
 
   userSelections.set(sessionId, {
     plan,
@@ -63,7 +64,7 @@ app.get("/payment-method", (req, res) => {
   });
 });
 
-// Updated payment endpoint with dynamic amounts
+// Fixed Payment endpoint
 app.post("/api/pay", async (req, res) => {
   const { amount, plan, sessionId } = req.body;
 
@@ -72,33 +73,44 @@ app.post("/api/pay", async (req, res) => {
 
   const TEXT_REF = `tx-${plan}-${Date.now()}`;
 
-  // Store transaction reference with session
+  // Store transaction reference
   const selection = userSelections.get(sessionId);
   if (selection) {
     selection.tx_ref = TEXT_REF;
     userSelections.set(sessionId, selection);
   }
 
+  // Correct Chapa data format
   const data = {
     amount: amount || "100",
     currency: "ETB",
-    email: "customer@example.com",
+    email: "abebech_bekele@gmail.com",
     first_name: "Customer",
     last_name: "User",
     tx_ref: TEXT_REF,
     callback_url: CALLBACK_URL + TEXT_REF,
     return_url: RETURN_URL,
-    customization: {
-      title: `Payment for ${plan} Plan`,
-      description: `Subscription payment for ${plan} plan`,
-    },
+    "customization[title]": `Payment for ${plan} Plan`,
+    "customization[description]": `Subscription payment for ${plan} plan`,
   };
+
+  console.log("Sending to Chapa:", data);
 
   try {
     const response = await axios.post(CHAPA_URL, data, config);
-    res.redirect(response.data.data.checkout_url);
+
+    if (response.data.status === "success") {
+      res.redirect(response.data.data.checkout_url);
+    } else {
+      console.error("Chapa API error:", response.data);
+      res.redirect("/payment-error");
+    }
   } catch (err) {
-    console.error("Payment initialization error:", err);
+    console.error("Payment initialization failed:");
+    console.error("Status:", err.response?.status);
+    console.error("Error Data:", err.response?.data);
+    console.error("Message:", err.message);
+
     res.redirect("/payment-error");
   }
 });
@@ -106,19 +118,22 @@ app.post("/api/pay", async (req, res) => {
 // Verification endpoint
 app.get("/api/verify-payment/:id", async (req, res) => {
   try {
-    await axios.get(
+    const response = await axios.get(
       "https://api.chapa.co/v1/transaction/verify/" + req.params.id,
       config
     );
-    console.log("Payment was successfully verified");
+    console.log("Payment verified successfully:", response.data);
     res.status(200).send("Verified");
   } catch (err) {
-    console.log("Payment can't be verified", err);
+    console.error(
+      "Payment verification failed:",
+      err.response?.data || err.message
+    );
     res.status(400).send("Verification failed");
   }
 });
 
-// Enhanced success page with transaction details
+// Success page
 app.get("/api/payment-success", async (req, res) => {
   const sessionId = req.query.session;
   const selection = userSelections.get(sessionId);
@@ -127,7 +142,6 @@ app.get("/api/payment-success", async (req, res) => {
     return res.redirect("/");
   }
 
-  // Simulate transaction details (in real app, get from Chapa verification)
   const transactionDetails = {
     transactionId: selection.tx_ref || `chapa-${Date.now()}`,
     plan: selection.plan,
@@ -149,7 +163,15 @@ app.get("/api/payment-success", async (req, res) => {
   });
 });
 
-// PDF Receipt Generation endpoint
+// Payment error page
+app.get("/payment-error", (req, res) => {
+  res.render("payment-error", {
+    error:
+      "Payment initialization failed. Please check your details and try again.",
+  });
+});
+
+// PDF receipt endpoint
 app.get("/api/generate-receipt", (req, res) => {
   const sessionId = req.query.session;
   const selection = userSelections.get(sessionId);
@@ -158,10 +180,8 @@ app.get("/api/generate-receipt", (req, res) => {
     return res.status(404).send("Transaction not found");
   }
 
-  // In a real application, you would use a PDF generation library like pdfkit
-  // For now, we'll simulate with a simple response
   res.json({
-    message: "PDF receipt generation endpoint",
+    message: "PDF receipt would be generated here",
     transaction: {
       id: selection.tx_ref,
       plan: selection.plan,
@@ -171,4 +191,4 @@ app.get("/api/generate-receipt", (req, res) => {
   });
 });
 
-app.listen(PORT, () => console.log("Enhanced server listening on port:", PORT));
+app.listen(PORT, () => console.log("🚀 Server running on port:", PORT));
