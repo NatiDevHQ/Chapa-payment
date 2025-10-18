@@ -25,7 +25,9 @@
       };
     </script>
   </head>
-  <body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
+  <body
+    class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen flex items-center justify-center p-6"
+  >
     <div class="max-w-2xl w-full">
       <div
         class="bg-white rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden border border-gray-200"
@@ -38,7 +40,7 @@
 
         <!-- Success Icon -->
         <div
-          class="w-24 h-24 bg-black rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white animate-bounce border-4 border-white shadow-lg"
+          class="w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white animate-bounce border-4 border-white shadow-lg"
         >
           <i class="fas fa-check"></i>
         </div>
@@ -51,31 +53,31 @@
 
         <!-- Transaction Details -->
         <div
-          class="bg-gray-50 rounded-xl p-6 mb-8 text-left border border-gray-200"
+          class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 mb-8 text-left border border-blue-200"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="flex justify-between py-2 border-b border-gray-300">
+            <div class="flex justify-between py-2 border-b border-blue-300">
               <span class="font-semibold text-gray-800">Transaction ID:</span>
               <span class="text-gray-600 font-mono text-sm"
                 ><%= transaction.transactionId %></span
               >
             </div>
-            <div class="flex justify-between py-2 border-b border-gray-300">
+            <div class="flex justify-between py-2 border-b border-blue-300">
               <span class="font-semibold text-gray-800">Plan:</span>
               <span class="text-gray-600"><%= transaction.plan %></span>
             </div>
-            <div class="flex justify-between py-2 border-b border-gray-300">
+            <div class="flex justify-between py-2 border-b border-blue-300">
               <span class="font-semibold text-gray-800">Amount:</span>
               <span class="text-gray-900 font-bold"
                 ><%= transaction.amount %> ETB</span
               >
             </div>
-            <div class="flex justify-between py-2 border-b border-gray-300">
+            <div class="flex justify-between py-2 border-b border-blue-300">
               <span class="font-semibold text-gray-800">Payment Method:</span>
               <span class="text-gray-600"><%= transaction.method %></span>
             </div>
             <div
-              class="flex justify-between py-2 border-b border-gray-300 md:col-span-2"
+              class="flex justify-between py-2 border-b border-blue-300 md:col-span-2"
             >
               <span class="font-semibold text-gray-800">Date & Time:</span>
               <span class="text-gray-600"><%= transaction.date %></span>
@@ -83,7 +85,7 @@
             <div class="flex justify-between py-2 md:col-span-2">
               <span class="font-semibold text-gray-800">Status:</span>
               <span
-                class="bg-black text-white px-3 py-1 rounded-full text-sm font-bold"
+                class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold"
               >
                 <%= transaction.status %>
               </span>
@@ -95,13 +97,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <button
             onclick="downloadPDFReceipt()"
-            class="bg-white border-2 border-black text-black hover:bg-gray-50 font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+            class="bg-white border-2 border-blue-500 text-blue-600 hover:bg-blue-50 font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
           >
             <i class="fas fa-file-pdf mr-2"></i>Download PDF Receipt
           </button>
           <a
             href="/"
-            class="bg-black hover:bg-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center border border-gray-800"
+            class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center border border-transparent"
           >
             <i class="fas fa-home mr-2"></i>Return to Dashboard
           </a>
@@ -111,15 +113,15 @@
         <div class="border-t border-gray-300 pt-6">
           <div class="space-y-2 text-gray-600">
             <p class="flex items-center justify-center">
-              <i class="fas fa-envelope text-gray-800 mr-2"></i>
+              <i class="fas fa-envelope text-blue-600 mr-2"></i>
               A confirmation email has been sent to your email address
             </p>
             <p class="flex items-center justify-center">
-              <i class="fas fa-bolt text-black mr-2"></i>
+              <i class="fas fa-bolt text-purple-600 mr-2"></i>
               Your account will be activated immediately
             </p>
             <p class="flex items-center justify-center">
-              <i class="fas fa-headset text-gray-700 mr-2"></i>
+              <i class="fas fa-headset text-blue-700 mr-2"></i>
               Need help? Contact our support team
             </p>
           </div>
@@ -132,13 +134,15 @@
       function createConfetti() {
         const container = document.getElementById("confetti-container");
         const symbols = ["●", "■", "▲", "◆"];
+        const colors = ["#3B82F6", "#8B5CF6", "#10B981", "#6366F1"];
 
         for (let i = 0; i < 30; i++) {
           const confetti = document.createElement("div");
           confetti.className = "absolute text-lg animate-bounce";
           confetti.style.left = Math.random() * 100 + "vw";
           confetti.style.top = "-20px";
-          confetti.style.color = Math.random() > 0.5 ? "#000000" : "#666666";
+          confetti.style.color =
+            colors[Math.floor(Math.random() * colors.length)];
           confetti.style.animationDelay = Math.random() * 3 + "s";
           confetti.style.opacity = "0.8";
           confetti.textContent =

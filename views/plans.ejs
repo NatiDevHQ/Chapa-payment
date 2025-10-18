@@ -25,7 +25,9 @@
       };
     </script>
   </head>
-  <body class="bg-gray-50 min-h-screen py-12 px-4">
+  <body
+    class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen py-12 px-4"
+  >
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
@@ -43,7 +45,7 @@
         >
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
+              class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-rocket"></i>
             </div>
@@ -55,19 +57,19 @@
 
           <ul class="space-y-4 mb-6">
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>10GB Storage</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>Basic Support</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>5 Users</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>Email Support</span>
             </li>
           </ul>
@@ -84,7 +86,7 @@
               type="email"
               id="email-basic"
               name="email"
-              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
               placeholder="your@email.com"
               required
               onchange="updateAllForms(this.value, 'basic')"
@@ -106,7 +108,7 @@
             <input type="hidden" name="email" id="hidden-email-basic" />
             <button
               type="submit"
-              class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
+              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-transparent"
             >
               Get Started
             </button>
@@ -115,16 +117,16 @@
 
         <!-- Standard Plan (Featured) -->
         <div
-          class="bg-white rounded-2xl shadow-2xl p-8 transform scale-105 relative border-2 border-black"
+          class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-2xl p-8 transform scale-105 relative border-2 border-blue-500"
         >
           <div
-            class="absolute top-6 -right-8 bg-black text-white px-8 py-1 rotate-45 shadow-lg font-bold"
+            class="absolute top-6 -right-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-1 rotate-45 shadow-lg font-bold"
           >
             POPULAR
           </div>
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
+              class="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-star"></i>
             </div>
@@ -136,23 +138,23 @@
 
           <ul class="space-y-4 mb-6">
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-black mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>50GB Storage</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-black mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>Priority Support</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-black mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>15 Users</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-black mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>Phone & Email Support</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-black mr-3"></i>
+              <i class="fas fa-check text-blue-600 mr-3"></i>
               <span>Advanced Analytics</span>
             </li>
           </ul>
@@ -169,7 +171,7 @@
               type="email"
               id="email-standard"
               name="email"
-              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
               placeholder="your@email.com"
               required
               onchange="updateAllForms(this.value, 'standard')"
@@ -191,7 +193,7 @@
             <input type="hidden" name="email" id="hidden-email-standard" />
             <button
               type="submit"
-              class="w-full bg-black hover:bg-gray-900 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
+              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-transparent"
             >
               Get Started
             </button>
@@ -204,7 +206,7 @@
         >
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
+              class="w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-crown"></i>
             </div>
@@ -216,27 +218,27 @@
 
           <ul class="space-y-4 mb-6">
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>Unlimited Storage</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>24/7 Premium Support</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>Unlimited Users</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>Dedicated Account Manager</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>Custom Integrations</span>
             </li>
             <li class="flex items-center text-gray-700">
-              <i class="fas fa-check text-gray-900 mr-3"></i>
+              <i class="fas fa-check text-purple-600 mr-3"></i>
               <span>Advanced Security</span>
             </li>
           </ul>
@@ -253,7 +255,7 @@
               type="email"
               id="email-premium"
               name="email"
-              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-gray-900"
               placeholder="your@email.com"
               required
               onchange="updateAllForms(this.value, 'premium')"
@@ -275,7 +277,7 @@
             <input type="hidden" name="email" id="hidden-email-premium" />
             <button
               type="submit"
-              class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
+              class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-transparent"
             >
               Get Started
             </button>
@@ -287,7 +289,7 @@
       <div class="text-center mt-12">
         <a
           href="/"
-          class="inline-flex items-center bg-black hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 border border-gray-800"
+          class="inline-flex items-center bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 border border-transparent"
         >
           <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
         </a>
