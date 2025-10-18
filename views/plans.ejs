@@ -9,15 +9,30 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#ffffff",
+              accent: "#404040",
+              light: "#f8f8f8",
+              dark: "#1a1a1a",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body
-    class="bg-gradient-to-br from-blue-600 to-purple-700 min-h-screen py-12 px-4"
+    class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen py-12 px-4"
   >
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-white mb-4">Choose Your Plan</h1>
-        <p class="text-xl text-blue-100">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Choose Your Plan</h1>
+        <p class="text-xl text-gray-600">
           Select the perfect plan that fits your needs
         </p>
       </div>
@@ -26,40 +41,63 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <!-- Basic Plan -->
         <div
-          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative"
+          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative border border-gray-200"
         >
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+              class="w-20 h-20 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-rocket"></i>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Basic</h2>
-            <div class="text-4xl font-bold text-blue-600 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Basic</h2>
+            <div class="text-4xl font-bold text-gray-900 mb-4">
               100 <span class="text-lg text-gray-600">ETB/month</span>
             </div>
           </div>
 
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>10GB Storage</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Basic Support</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>5 Users</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Email Support</span>
             </li>
           </ul>
 
-          <form action="/select-plan" method="POST">
+          <!-- Email Input -->
+          <div class="mb-6">
+            <label
+              class="block text-gray-800 text-sm font-bold mb-2"
+              for="email-basic"
+            >
+              Your Email
+            </label>
+            <input
+              type="email"
+              id="email-basic"
+              name="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              placeholder="your@email.com"
+              required
+              onchange="updateAllForms(this.value, 'basic')"
+            />
+          </div>
+
+          <form
+            action="/select-plan"
+            method="POST"
+            class="plan-form basic-form"
+          >
             <input type="hidden" name="plan" value="Basic" />
             <input type="hidden" name="amount" value="100" />
             <input
@@ -67,60 +105,84 @@
               name="features"
               value="10GB Storage,Basic Support,5 Users,Email Support"
             />
+            <input type="hidden" name="email" id="hidden-email-basic" />
             <button
               type="submit"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
             >
               Get Started
             </button>
           </form>
         </div>
 
-        <!-- Standard Plan (Popular) -->
+        <!-- Standard Plan (Featured) -->
         <div
-          class="bg-white rounded-2xl shadow-2xl p-8 transform scale-105 relative border-4 border-blue-500"
+          class="bg-white rounded-2xl shadow-2xl p-8 transform scale-105 relative border-2 border-black"
         >
           <div
-            class="absolute top-6 -right-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-1 rotate-45 shadow-lg"
+            class="absolute top-6 -right-8 bg-black text-white px-8 py-1 rotate-45 shadow-lg font-bold"
           >
             POPULAR
           </div>
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+              class="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-star"></i>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Standard</h2>
-            <div class="text-4xl font-bold text-purple-600 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Standard</h2>
+            <div class="text-4xl font-bold text-gray-900 mb-4">
               200 <span class="text-lg text-gray-600">ETB/month</span>
             </div>
           </div>
 
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-black mr-3"></i>
               <span>50GB Storage</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-black mr-3"></i>
               <span>Priority Support</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-black mr-3"></i>
               <span>15 Users</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-black mr-3"></i>
               <span>Phone & Email Support</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-black mr-3"></i>
               <span>Advanced Analytics</span>
             </li>
           </ul>
 
-          <form action="/select-plan" method="POST">
+          <!-- Email Input -->
+          <div class="mb-6">
+            <label
+              class="block text-gray-800 text-sm font-bold mb-2"
+              for="email-standard"
+            >
+              Your Email
+            </label>
+            <input
+              type="email"
+              id="email-standard"
+              name="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              placeholder="your@email.com"
+              required
+              onchange="updateAllForms(this.value, 'standard')"
+            />
+          </div>
+
+          <form
+            action="/select-plan"
+            method="POST"
+            class="plan-form standard-form"
+          >
             <input type="hidden" name="plan" value="Standard" />
             <input type="hidden" name="amount" value="200" />
             <input
@@ -128,9 +190,10 @@
               name="features"
               value="50GB Storage,Priority Support,15 Users,Phone & Email Support,Advanced Analytics"
             />
+            <input type="hidden" name="email" id="hidden-email-standard" />
             <button
               type="submit"
-              class="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              class="w-full bg-black hover:bg-gray-900 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
             >
               Get Started
             </button>
@@ -139,48 +202,71 @@
 
         <!-- Premium Plan -->
         <div
-          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative"
+          class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105 relative border border-gray-200"
         >
           <div class="text-center">
             <div
-              class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white"
+              class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl text-white border-4 border-white shadow-lg"
             >
               <i class="fas fa-crown"></i>
             </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Premium</h2>
-            <div class="text-4xl font-bold text-orange-600 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Premium</h2>
+            <div class="text-4xl font-bold text-gray-900 mb-4">
               300 <span class="text-lg text-gray-600">ETB/month</span>
             </div>
           </div>
 
-          <ul class="space-y-4 mb-8">
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Unlimited Storage</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>24/7 Premium Support</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Unlimited Users</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Dedicated Account Manager</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Custom Integrations</span>
             </li>
-            <li class="flex items-center text-gray-600">
-              <i class="fas fa-check text-green-500 mr-3"></i>
+            <li class="flex items-center text-gray-700">
+              <i class="fas fa-check text-gray-900 mr-3"></i>
               <span>Advanced Security</span>
             </li>
           </ul>
 
-          <form action="/select-plan" method="POST">
+          <!-- Email Input -->
+          <div class="mb-6">
+            <label
+              class="block text-gray-800 text-sm font-bold mb-2"
+              for="email-premium"
+            >
+              Your Email
+            </label>
+            <input
+              type="email"
+              id="email-premium"
+              name="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white text-gray-900"
+              placeholder="your@email.com"
+              required
+              onchange="updateAllForms(this.value, 'premium')"
+            />
+          </div>
+
+          <form
+            action="/select-plan"
+            method="POST"
+            class="plan-form premium-form"
+          >
             <input type="hidden" name="plan" value="Premium" />
             <input type="hidden" name="amount" value="300" />
             <input
@@ -188,9 +274,10 @@
               name="features"
               value="Unlimited Storage,24/7 Premium Support,Unlimited Users,Dedicated Account Manager,Custom Integrations,Advanced Security"
             />
+            <input type="hidden" name="email" id="hidden-email-premium" />
             <button
               type="submit"
-              class="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl border border-gray-800"
             >
               Get Started
             </button>
@@ -202,11 +289,31 @@
       <div class="text-center mt-12">
         <a
           href="/"
-          class="inline-flex items-center bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm"
+          class="inline-flex items-center bg-black hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 border border-gray-800"
         >
           <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
         </a>
       </div>
     </div>
+
+    <script>
+      function updateAllForms(email, currentForm) {
+        document.getElementById("hidden-email-basic").value = email;
+        document.getElementById("hidden-email-standard").value = email;
+        document.getElementById("hidden-email-premium").value = email;
+
+        if (currentForm !== "basic")
+          document.getElementById("email-basic").value = email;
+        if (currentForm !== "standard")
+          document.getElementById("email-standard").value = email;
+        if (currentForm !== "premium")
+          document.getElementById("email-premium").value = email;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const defaultEmail = "test@gmail.com";
+        updateAllForms(defaultEmail, "basic");
+      });
+    </script>
   </body>
 </html>

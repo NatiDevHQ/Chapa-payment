@@ -9,21 +9,36 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#ffffff",
+              accent: "#404040",
+              light: "#f8f8f8",
+              dark: "#1a1a1a",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body
-    class="bg-gradient-to-br from-blue-600 to-purple-700 min-h-screen flex items-center justify-center p-6"
+    class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-6"
   >
     <div class="max-w-md w-full">
       <!-- Status Card -->
       <div
-        class="bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-300 hover:scale-105"
+        class="bg-white rounded-2xl shadow-2xl p-8 transform transition-all duration-300 hover:scale-105 border border-gray-200"
       >
         <!-- Status Indicator -->
         <div
-          class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl text-white <%= paymentStatus === 'pending' ? 'bg-yellow-500' : '' %> <%= paymentStatus === 'complete' ? 'bg-green-500' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'bg-red-500' : '' %>"
+          class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl text-white <%= paymentStatus === 'pending' ? 'bg-gray-600' : '' %> <%= paymentStatus === 'complete' ? 'bg-black' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'bg-gray-800' : '' %> border-4 border-white shadow-lg"
         >
           <% if (paymentStatus === 'pending') { %>
-          <i class="fas fa-bolt"></i>
+          <i class="fas fa-clock"></i>
           <% } else if (paymentStatus === 'complete') { %>
           <i class="fas fa-check"></i>
           <% } else { %>
@@ -32,7 +47,7 @@
         </div>
 
         <!-- Status Title -->
-        <h1 class="text-2xl font-bold text-center text-gray-800 mb-3">
+        <h1 class="text-2xl font-bold text-center text-gray-900 mb-3">
           <% if (paymentStatus === 'pending') { %> Payment Pending <% } else if
           (paymentStatus === 'complete') { %> Payment Complete! <% } else { %>
           Action Required <% } %>
@@ -49,13 +64,13 @@
         </p>
 
         <!-- Payment Info -->
-        <div class="bg-gray-50 rounded-xl p-6 mb-6">
+        <div class="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
           <div
-            class="flex justify-between items-center py-3 border-b border-gray-200"
+            class="flex justify-between items-center py-3 border-b border-gray-300"
           >
-            <span class="font-semibold text-gray-700">Current Status:</span>
+            <span class="font-semibold text-gray-800">Current Status:</span>
             <span
-              class="<%= paymentStatus === 'pending' ? 'text-yellow-600' : '' %> <%= paymentStatus === 'complete' ? 'text-green-600' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'text-red-600' : '' %> font-medium"
+              class="<%= paymentStatus === 'pending' ? 'text-gray-600' : '' %> <%= paymentStatus === 'complete' ? 'text-black font-bold' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'text-gray-800' : '' %> font-medium"
             >
               <% if (paymentStatus === 'pending') { %> Pending <% } else if
               (paymentStatus === 'complete') { %> Active <% } else { %> Overdue
@@ -63,13 +78,13 @@
             </span>
           </div>
           <div
-            class="flex justify-between items-center py-3 border-b border-gray-200"
+            class="flex justify-between items-center py-3 border-b border-gray-300"
           >
-            <span class="font-semibold text-gray-700">Next Billing:</span>
+            <span class="font-semibold text-gray-800">Next Billing:</span>
             <span class="text-gray-600">30 days</span>
           </div>
           <div class="flex justify-between items-center py-3">
-            <span class="font-semibold text-gray-700">Last Updated:</span>
+            <span class="font-semibold text-gray-800">Last Updated:</span>
             <span class="text-gray-600"
               ><%= new Date().toLocaleDateString() %></span
             >
@@ -79,7 +94,7 @@
         <!-- Action Button -->
         <a
           href="/plans"
-          class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
+          class="block w-full bg-black hover:bg-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center border border-gray-800"
         >
           <% if (paymentStatus === 'complete') { %>
           <i class="fas fa-cog mr-2"></i>Manage Subscription <% } else { %>

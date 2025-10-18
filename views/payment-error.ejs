@@ -9,34 +9,51 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#ffffff",
+              accent: "#404040",
+              light: "#f8f8f8",
+              dark: "#1a1a1a",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body
-    class="bg-gradient-to-br from-red-400 to-orange-500 min-h-screen flex items-center justify-center p-6"
+    class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-6"
   >
     <div class="max-w-md w-full">
-      <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+      <div
+        class="bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-200"
+      >
         <!-- Error Icon -->
         <div
-          class="w-24 h-24 bg-gradient-to-br from-red-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white"
+          class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white border-4 border-white shadow-lg"
         >
           <i class="fas fa-exclamation-triangle"></i>
         </div>
 
         <!-- Error Title -->
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">Payment Error</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">Payment Error</h1>
         <p class="text-gray-600 mb-8 leading-relaxed"><%= error %></p>
 
         <!-- Action Buttons -->
         <div class="space-y-4">
           <a
             href="/plans"
-            class="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+            class="block w-full bg-black hover:bg-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 border border-gray-800"
           >
             <i class="fas fa-redo mr-2"></i>Try Again
           </a>
           <a
             href="/"
-            class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+            class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 border border-gray-700"
           >
             <i class="fas fa-home mr-2"></i>Back to Dashboard
           </a>
