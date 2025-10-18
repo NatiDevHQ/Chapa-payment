@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payment Dashboard</title>
+    <title>Dashboard - Talmid Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -25,82 +25,100 @@
       };
     </script>
   </head>
-  <body
-    class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-6"
-  >
-    <div class="max-w-md w-full">
-      <!-- Status Card -->
-      <div
-        class="bg-white rounded-2xl shadow-2xl p-8 transform transition-all duration-300 hover:scale-105 border border-gray-200"
-      >
-        <!-- Status Indicator -->
-        <div
-          class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl text-white <%= paymentStatus === 'pending' ? 'bg-gray-600' : '' %> <%= paymentStatus === 'complete' ? 'bg-black' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'bg-gray-800' : '' %> border-4 border-white shadow-lg"
-        >
-          <% if (paymentStatus === 'pending') { %>
-          <i class="fas fa-clock"></i>
-          <% } else if (paymentStatus === 'complete') { %>
-          <i class="fas fa-check"></i>
-          <% } else { %>
-          <i class="fas fa-exclamation"></i>
-          <% } %>
-        </div>
-
-        <!-- Status Title -->
-        <h1 class="text-2xl font-bold text-center text-gray-900 mb-3">
-          <% if (paymentStatus === 'pending') { %> Payment Pending <% } else if
-          (paymentStatus === 'complete') { %> Payment Complete! <% } else { %>
-          Action Required <% } %>
-        </h1>
-
-        <!-- Status Description -->
-        <p class="text-gray-600 text-center mb-8 leading-relaxed">
-          <% if (paymentStatus === 'pending') { %> Your subscription payment is
-          pending. Complete the payment process to continue enjoying our
-          services. <% } else if (paymentStatus === 'complete') { %> Thank you!
-          Your payment has been successfully processed. You're all set! <% }
-          else { %> Your payment deadline is approaching. Please complete your
-          payment to avoid service interruption. <% } %>
-        </p>
-
-        <!-- Payment Info -->
-        <div class="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
-          <div
-            class="flex justify-between items-center py-3 border-b border-gray-300"
-          >
-            <span class="font-semibold text-gray-800">Current Status:</span>
-            <span
-              class="<%= paymentStatus === 'pending' ? 'text-gray-600' : '' %> <%= paymentStatus === 'complete' ? 'text-black font-bold' : '' %> <%= !['pending', 'complete'].includes(paymentStatus) ? 'text-gray-800' : '' %> font-medium"
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center">
+            <div
+              class="w-10 h-10 bg-black rounded-lg flex items-center justify-center text-white font-bold text-xl mr-3"
             >
-              <% if (paymentStatus === 'pending') { %> Pending <% } else if
-              (paymentStatus === 'complete') { %> Active <% } else { %> Overdue
-              <% } %>
-            </span>
+              TS
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900">Talmid Solutions</h1>
           </div>
-          <div
-            class="flex justify-between items-center py-3 border-b border-gray-300"
-          >
-            <span class="font-semibold text-gray-800">Next Billing:</span>
-            <span class="text-gray-600">30 days</span>
-          </div>
-          <div class="flex justify-between items-center py-3">
-            <span class="font-semibold text-gray-800">Last Updated:</span>
-            <span class="text-gray-600"
-              ><%= new Date().toLocaleDateString() %></span
+          <div class="flex items-center space-x-4">
+            <div class="text-right">
+              <p class="text-sm font-medium text-gray-900"><%= user.name %></p>
+              <p class="text-xs text-gray-500"><%= user.email %></p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center"
             >
+              <i class="fas fa-user text-gray-600"></i>
+            </div>
           </div>
         </div>
-
-        <!-- Action Button -->
-        <a
-          href="/plans"
-          class="block w-full bg-black hover:bg-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center border border-gray-800"
-        >
-          <% if (paymentStatus === 'complete') { %>
-          <i class="fas fa-cog mr-2"></i>Manage Subscription <% } else { %>
-          <i class="fas fa-arrow-right mr-2"></i>Continue to Payment <% } %>
-        </a>
       </div>
+    </header>
+
+    <!-- Improved Full Width Status Alert -->
+    <div
+      class="w-full bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-b border-blue-200 py-6"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between"
+        >
+          <div class="flex items-start mb-4 md:mb-0">
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-gift text-white text-lg"></i>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg font-bold text-gray-900">
+                Upgrade to AI Access today!
+              </h3>
+              <div class="mt-1 text-sm text-gray-700">
+                <p>
+                  Get 12 months of premium programs access for just
+                  <span class="font-bold">$45</span>—that's less than $4 per
+                  month!
+                </p>
+                <p class="text-xs text-gray-500 mt-1">Limited time offer</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <a
+              href="/plans"
+              class="inline-flex items-center px-6 py-3 text-base font-semibold rounded-lg shadow-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              <i class="fas fa-bolt mr-2"></i>
+              Upgrade Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          Welcome to the eHub
+        </h1>
+        <p class="text-lg text-gray-600">
+          Your ALX Learning Journey Starts Here
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-200"
+      >
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">
+          Welcome, Natnael!
+        </h2>
+        <p class="text-gray-600">
+          Your learning journey begins today. Let's explore together!
+        </p>
+      </div>
+
+      <!-- Rest of your content... -->
     </div>
   </body>
 </html>

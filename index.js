@@ -1,4 +1,4 @@
-/* CHAPA API PAYMENT INTEGRATION - BLACK & WHITE MODERN UI */
+/* CHAPA API PAYMENT INTEGRATION - TALMID SOLUTIONS */
 const express = require("express");
 const app = express();
 const axios = require("axios").default;
@@ -25,10 +25,64 @@ const config = {
 // Store selected plans temporarily
 const userSelections = new Map();
 
+// Mock user data
+const userData = {
+  name: "Daru Sim",
+  email: "daru@email.com",
+  subscription: {
+    plan: "Basic",
+    status: "pending", // pending, active, expired
+    nextBilling: "2025-07-18",
+    lastPayment: "2025-06-18",
+    amount: "100 ETB",
+  },
+};
+
 // Routes
 app.get("/", (req, res) => {
-  const paymentStatus = "pending";
-  res.render("index", { paymentStatus });
+  // Determine status for the alert
+  const statusConfig = {
+    pending: {
+      color: "yellow",
+      borderColor: "border-yellow-500",
+      bgColor: "bg-yellow-50",
+      textColor: "text-yellow-800",
+      icon: "fas fa-clock",
+      title: "Payment Pending",
+      message:
+        "Your subscription payment is pending. Complete the payment to continue services.",
+      buttonText: "Make Payment",
+    },
+    active: {
+      color: "green",
+      borderColor: "border-green-500",
+      bgColor: "bg-green-50",
+      textColor: "text-green-800",
+      icon: "fas fa-check-circle",
+      title: "Payment Complete",
+      message: "Your payment has been successfully processed. Thank you!",
+      buttonText: "Manage Subscription",
+    },
+    expired: {
+      color: "red",
+      borderColor: "border-red-500",
+      bgColor: "bg-red-50",
+      textColor: "text-red-800",
+      icon: "fas fa-exclamation-triangle",
+      title: "Payment Required",
+      message:
+        "Your subscription has expired. Please renew to continue services.",
+      buttonText: "Renew Now",
+    },
+  };
+
+  const currentStatus = userData.subscription.status;
+  const statusInfo = statusConfig[currentStatus];
+
+  res.render("index", {
+    user: userData,
+    statusInfo: statusInfo,
+  });
 });
 
 app.get("/plans", (req, res) => {
@@ -183,12 +237,14 @@ app.get("/api/generate-receipt", (req, res) => {
     return res.status(404).send("Transaction not found");
   }
 
-  // Generate HTML for PDF receipt
+  // For PDF generation, we'll create an HTML page that can be printed as PDF
+  // In a production environment, you would use a library like pdfkit or puppeteer
   const receiptHtml = `
   <!DOCTYPE html>
   <html>
   <head>
     <meta charset="UTF-8">
+    <title>Payment Receipt - Talmid Solutions</title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
       
@@ -203,12 +259,13 @@ app.get("/api/generate-receipt", (req, res) => {
         background: #ffffff; 
         color: #000000; 
         line-height: 1.6; 
-        padding: 40px; 
+        padding: 0;
+        margin: 0;
       }
       
       .receipt-container { 
-        max-width: 800px; 
-        margin: 0 auto; 
+        width: 100%;
+        min-height: 100vh;
         background: #ffffff; 
         border: 2px solid #000000; 
         position: relative;
@@ -352,6 +409,17 @@ app.get("/api/generate-receipt", (req, res) => {
         pointer-events: none;
         z-index: 1;
       }
+      
+      @media print {
+        body {
+          padding: 0;
+          margin: 0;
+        }
+        .receipt-container {
+          border: none;
+          box-shadow: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -364,7 +432,7 @@ app.get("/api/generate-receipt", (req, res) => {
       </div>
       
       <div class="company-info">
-        <h2>ALX Foundation and ALX Holdings Limited</h2>
+        <h2>Talmid Solutions</h2>
         <p class="text-lg">5th Floor, The CORE Building, No. 62, ICT Avenue, Cybercity, Ebene, Mauritius</p>
       </div>
       
@@ -419,14 +487,24 @@ app.get("/api/generate-receipt", (req, res) => {
       
       <div class="footer">
         <p class="text-lg">Thank you for your business!</p>
-        <p class="text-lg">For any inquiries, please contact support@alxfoundation.com</p>
+        <p class="text-lg">For any inquiries, please contact support@talmidsolutions.com</p>
       </div>
     </div>
+    
+    <script>
+      // Auto-print and close after download
+      window.onload = function() {
+        window.print();
+        setTimeout(function() {
+          window.close();
+        }, 1000);
+      };
+    </script>
   </body>
   </html>
   `;
 
-  // Set headers for PDF download
+  // Set headers for HTML that can be printed as PDF
   res.setHeader("Content-Type", "text/html");
   res.setHeader(
     "Content-Disposition",
@@ -435,4 +513,6 @@ app.get("/api/generate-receipt", (req, res) => {
   res.send(receiptHtml);
 });
 
-app.listen(PORT, () => console.log("🚀 Server running on port:", PORT));
+app.listen(PORT, () =>
+  console.log("🚀 Talmid Solutions Server running on port:", PORT)
+);
