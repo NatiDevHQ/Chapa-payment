@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Select Plan</title>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+      .plan {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        cursor: pointer;
+      }
+      .plans {
+        display: flex;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Select a Plan</h2>
+    <div class="plans">
+      <div class="plan" onclick="selectPlan('Basic', 100)">Basic - 100 ETB</div>
+      <div class="plan" onclick="selectPlan('Standard', 200)">
+        Standard - 200 ETB
+      </div>
+      <div class="plan" onclick="selectPlan('Premium', 300)">
+        Premium - 300 ETB
+      </div>
+    </div>
+
+    <script>
+      function selectPlan(plan, price) {
+        localStorage.setItem("selectedPlan", plan);
+        localStorage.setItem("selectedPrice", price);
+        window.location.href = "/payment-method";
+      }
+    </script>
+  </body>
+</html>

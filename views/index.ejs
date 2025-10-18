@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Payment Status Dashboard</title>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f2f2f2;
+        padding: 20px;
+      }
+      .status-card {
+        width: 300px;
+        padding: 20px;
+        margin: auto;
+        text-align: center;
+        border-radius: 10px;
+        color: white;
+      }
+      .red {
+        background: #e74c3c;
+      }
+      .yellow {
+        background: #f1c40f;
+        color: black;
+      }
+      .green {
+        background: #2ecc71;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="statusCard" class="status-card">
+      <h2>Payment Status</h2>
+      <p id="statusText">Loading...</p>
+      <button onclick="continueFlow()">Continue</button>
+    </div>
+
+    <form id="chapaForm" action="/api/pay" method="post" style="display: none">
+      <button type="submit">Real Chapa Checkout</button>
+    </form>
+
+    <script>
+      let status = localStorage.getItem("paymentStatus") || "pending";
+      const card = document.getElementById("statusCard");
+      const text = document.getElementById("statusText");
+
+      if (status === "paid") {
+        card.className = "status-card green";
+        text.innerText = "Payment Complete";
+      } else if (status === "pending") {
+        card.className = "status-card yellow";
+        text.innerText = "Pending Payment";
+      } else {
+        card.className = "status-card red";
+        text.innerText = "Deadline Near / Overdue";
+      }
+
+      function continueFlow() {
+        window.location.href = "/plans";
+      }
+    </script>
+  </body>
+</html>

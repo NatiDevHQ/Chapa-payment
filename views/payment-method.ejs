@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Select Payment Method</title>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f2f2f2;
+        padding: 20px;
+      }
+      .method {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        cursor: pointer;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Choose Payment Method</h2>
+    <div class="method" onclick="pay('chapa')">Chapa Pay</div>
+    <div class="method" onclick="pay('demo')">Demo Payment</div>
+
+    <script>
+      function pay(method) {
+        const plan = localStorage.getItem("selectedPlan");
+        const price = localStorage.getItem("selectedPrice");
+
+        if (method === "chapa") {
+          document.getElementById("chapaForm").submit();
+        } else {
+          const demoUrl = `/success-demo?plan=${plan}&amount=${price}`;
+          window.location.href = demoUrl;
+        }
+      }
+    </script>
+
+    <form id="chapaForm" action="/api/pay" method="post" style="display: none">
+      <!-- Optional hidden inputs for plan/amount -->
+    </form>
+  </body>
+</html>
